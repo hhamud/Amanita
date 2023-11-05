@@ -1,0 +1,55 @@
+name: Rust End-to-End Test CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        override: true
+
+    - name: Build Rust application
+      run: cargo build --release --bin amanita
+
+    - name: Start Receiver in the background
+      run: |
+        mkdir -p receiver_files
+        ./target/release/amanita --output-dir receiver_files --port '8080' &
+        echo "Receiver PID=$!"
+        echo "Receiver PID=$!" >> $GITHUB_ENV
+
+    - name: Create a test file for Sender
+      run: |
+        mkdir -p sender_files
+        echo 'Test content' > sender_files/test_file.txt
+
+    - name: Wait for Receiver to start
+      run: sleep 10 # Gives some more time to wait for the reciever to start
+
+    - name: Run Sender
+      run: |
+        ./target/release/amanita --from sender_files --to 'ws://localhost:8080/ws'
+        sleep 5 # Give some time for the sender to send the file
+
+    - name: Verify File Transfer
+      run: |
+        if [ -f receiver_files/test_file.txt ]; then
+          echo "File synchronization test passed."
+        else
+          echo "File synchronization test failed."
+          exit 1
+        fi
+

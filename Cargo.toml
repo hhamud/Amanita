@@ -1,0 +1,20 @@
+[workspace]
+members = [
+"amanita",
+"amanita-common",
+"amanita-server",
+"amanita-client",
+]
+
+resolver = "2"
+
+[workspace.package]
+name = "amanita"
+version = "0.1.0"
+edition = "2021"
+authors = ["Hamza Hamud <self@hamzahamud.com>"]
+license = "AGPL"
+repository = "https://github.com/amanite/amanite"
+readme = "README.md"
+
+
