@@ -1,6 +1,9 @@
 # Amanita
 
-A tool to sync your directory over N machines.
+A tool to sync your directory over your local network. 
+
+The plan here is to eventually allow easy syncing of your directory to N machines over the internet.
+
 [![Tests](https://github.com/hhamud/Amanita/actions/workflows/ci.yml/badge.svg)](https://github.com/hhamud/Amanita/actions/workflows/ci.yml)
 
 ## Installation
@@ -11,7 +14,9 @@ cargo install --git https://github.com/hhamud/amanita.git --bin
 
 ## Usage
 
-To use this project, you need to build and run it on both the sender and receiver sides. The following command-line arguments are available for running the project:
+To use this project, you need to build and run it on both the sender and receiver sides. You run the reciever commands over on the machine that you want the directory to be synced. You run the sender commands on the machine you to send the files from.
+
+The following command-line arguments are available for running the project:
 
 ### Sender
 - `--from`: Specifies the source directory from which files will be sent.
