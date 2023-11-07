@@ -1,11 +1,12 @@
 # Amanita
 
 A tool to sync your directory over N machines.
+[![Tests](https://github.com/hhamud/Amanita/actions/workflows/ci.yml/badge.svg)](https://github.com/hhamud/Amanita/actions/workflows/ci.yml)
 
 ## Installation
 
 ```shell
-cargo build
+cargo install --git https://github.com/hhamud/amanita.git --bin
 ```
 
 ## Usage
@@ -18,17 +19,17 @@ To use this project, you need to build and run it on both the sender and receive
 
 
 ```shell
-cargo run --release -- --from ~/Desktop  --to ws://localhost:4000/ws
+amanita --from ~/Desktop  --to ws://localhost:4000/ws
 ```
 
 ### Receiver
+- make sure that the output directory already exists.
 - `--output_dir`: Specifies the directory where received files will be saved.
 - `--port`: Specifies the port on which the WebSocket server will listen for incoming connections.
 
 
-- make sure that the output directory already exists.
 ```shell
-cargo run --release -- --port 4000 --output-dir  ~/test
+amanita --port 4000 --output-dir  ~/test
 ```
 
 
