@@ -1,4 +1,4 @@
-name: Rust End-to-End Test CI
+name: Tests
 
 on:
   push:
